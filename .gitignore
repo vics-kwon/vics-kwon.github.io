@@ -1,0 +1,55 @@
+### Default ###
+*.gem
+*.sublime-project
+*.sublime-workspace
+.bundle
+.DS_Store
+_asset_bundler_cache
+codekit-config.json
+example/_site
+npm-debug.log*
+
+### Jekyll ###
+_site
+.sass-cache
+.jekyll-metadata
+Gemfile.lock
+
+### Gulp ###
+package.json
+/node_modules/
+node_modules
+
+### Compressed Packages ###
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+### Logs and Databases ###
+*.log
+*.sql
+*.sqlite
+
+### MacOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
