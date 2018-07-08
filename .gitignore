@@ -14,6 +14,7 @@ _site
 .sass-cache
 .jekyll-metadata
 Gemfile.lock
+_drafts
 
 ### Gulp ###
 package.json
@@ -53,3 +54,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+### VSCode ###
+.vscode

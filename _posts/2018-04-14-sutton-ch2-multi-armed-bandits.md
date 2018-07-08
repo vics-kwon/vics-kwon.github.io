@@ -1,0 +1,79 @@
+
+## Reinforcement Learning 
+  * 수행한 action에 대한 평가(evaluation) 정보를 training에 이용함. 올바른 action에 대한 지도(instruction)을 training에 이용하지 않음.
+
+## k-armed Bandit Problem 
+  * non-association setting
+    * evaluative feedback과 연관된 가장 우선적인 작업을 수행함
+  * repeat choice among k different options (or actions)
+    * (예시) k개의 slot machine lever가 있고, action은 하나의 lever를 선택하여 slot machine을 수행하는 것
+    * action 에 대한 보상은 stationary probability distribution으로부터 선택됨
+    * 이 문제의 목적은 일정동안의 시간이 흐른 뒤에 (over some time period) 받을 것으로 예상되는 total reward를 최대로 하는 것 (to maximize expected total reward)
+
+## Action-value
+  * 각 action은 expected or mean reward 가 있음. 이를 value라고 칭함. 
+  * 그러나, 우리는 action value를 명확하게 알지 못하고, 단지 estimation만 할 뿐임.
+  * greedy action
+    * estimated value가 가장 큰 action
+  * exploiting
+    * 현재 주어진 knowledge 하에 greedy action을 선택
+  * exploring
+    * non-greedy action을 선택
+
+## Action-value Methods
+  * sample-average method
+    * estimate action value by using previous rewards of each action
+  * ε-greedy action selection
+    * exploration with the probability $\epsilon$
+    * exploitation with the probability $1- \epsilon$
+
+## Stationary vs. Non-stationary
+  * stationary (wikipedia)
+    * a stochastic process whose unconditional joint probability distribution does not change when shifted in time
+    * parameters such as mean and variance, if they are present, also do not change over time.
+  * non-stationary
+    * the true value of the actions change over time
+    * reward probability changes over time
+
+## Incremental Update Rule
+  * NewEstimate ← OldEstimate + StepSize [ Target − OldEstimate ]
+    * error = Target − OldEstimate
+    * StepSize : $\alpha$ ∈ (0 , 1]
+
+## Tracking Non-stationary Problem
+  * exponential recency-weighted average
+    * if $1 - \alpha$ = 0, then all the weight goes on the very last reward $R_n$
+  * sample-average case는 convergence condition 성립.
+    * 1/n 이라는 StepSize는 최근에 받은 Reward의 Weight를 낮춤.
+  * constant StepSize인 경우는 convergence condition 성립하지 않음.
+    * 최근에 받은 Reward에 영향을 많이 받음 --> non-stationary env에서 원하는 바. 
+  * conclusion
+    * Reward가 시간에 따라 가변적인 Non-stationary 문제 상황에서는, StepSize가 Convergence Condition을 성립하면 Incremental Update Rule이 제대로 작동하지 않아서 Optimal action을 선택하기 어렵게 된다.. 
+
+## Optimistic Initial Values
+  * biased by initial estimates
+    * 여기서 말하는 bias의 의미는 무엇인가? 
+      * (Q) initial value를 주는거 자체가 bias를 유발하는건가? 
+    * sample-average method에서는 모든 action이 한번씩 선택되어 지면 bias가 사라짐.
+    * constant StepSize에서는 시간의 흐름에 따라 bias가 줄어들긴 하지만 없어지지는 않음.
+  * initial action value를 이용하여 exploration을 의도적으로 조정할 수도 있음. stationary problem에 잘 작동하는 간단한 trick.
+    * (질문) optimistic, greedy인데.. 더 optimal action을 잘 찾아감... 이게 왜 initial action value와 연관이 있는 것일까?
+  * Non-stationary env에서는 initial value optimization이 의미가 없음.
+
+## Upper-confidence-bound(UCB) Action Selection
+  * non-greedy action을 선택할 때, 해당 action이 optimal이 될 가능성을 고려하여 선정하자. 
+  * 앞서 선택이 안된 action일수록, maximizing action일 것으로 기대.
+  * 선택이 많이 된 action일수록 uncertainty가 감소함.
+  * non-stationary env & large state space 에서는 적용하기 조금 어려운 점이 있음.
+
+## Gradient Bandit Algorithm
+  * preference를 고려하여 action을 선택하자. reward와 preference는 별개.
+  * 오히려 reward 값과 baseline 값을 고려하여 preference 값을 업데이트.
+    * baseline을 잡아주는지 아닌지에 따라 performance 차이가 크게 남.
+
+## Associative Search (Contextual Bandits)
+  * Non-associative Tasks
+    * different situation과 different action을 연결시킬 필요가 없는 tasks.
+    * stationary든 non-stationary든, single best action만 찾으면 됨.
+  * Associative Tasks
+    * task를 수행하고나면, 환경도 변하고 situation도 변해서.. 다음 action을 선택할 때에는 situation에 대한 고려까지 필요한 경우.
