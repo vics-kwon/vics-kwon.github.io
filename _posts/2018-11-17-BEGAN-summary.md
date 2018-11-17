@@ -8,7 +8,6 @@ categories:
   - GAN
 ---
 
-# BEGAN (2017)
 Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium generative adversarial networks**. arXiv preprint arXiv:1703.10717.
 
 ## 논문 링크
@@ -55,7 +54,7 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
     - data manifold 안에 속하는 데이터는 low energy를 가지고, data manifold 밖에 속하는 데이터는 high energy를 가짐.
 - Generator는 Low energy를 가지는 data들을 생성하는 쪽으로 학습이 진행 됨.
 
-  ![](./2018-11-17-imgs/Untitled-a4b40cae-43a8-46c9-bdd5-5d2281ab3421.png)
+  ![](/_posts/2018-11-17-imgs/Untitled-a4b40cae-43a8-46c9-bdd5-5d2281ab3421.png)
 
 ## BEGAN
 
@@ -68,17 +67,17 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
       - dist. #2: G가 생성한 image의 pixel-wise loss $\mathcal{L} (G(z))$ 의 분포 $\mu _2$
     - Jensen's inequality를 이용하면 이 Distance의 Lower bound를 구할 수 있음. 
 
-  ![](./2018-11-17-imgs/Untitled-ec59964c-ef85-4783-9622-fd46f85c7649.png)
+  ![](/_posts/2018-11-17-imgs/Untitled-ec59964c-ef85-4783-9622-fd46f85c7649.png)
 
 - GAN Objective: Maximize lower bound of wasserstein distance
 
-    ![](./2018-11-17-imgs/Untitled-c471c7a3-bb5e-493a-bccb-beb9c33b3e92.png)
+    ![](/_posts/2018-11-17-imgs/Untitled-c471c7a3-bb5e-493a-bccb-beb9c33b3e92.png)
 
     - Lower bound를 Maximize 하는 방법 중에서 (b)를 선택
         - $m_1$을 minimize하는 것 = 진짜 image의 auto-encoder loss $\mathcal{L} (x)$를 줄이는 것과 동일.
     - Discriminator / Generator Loss
 
-    ![](./2018-11-17-imgs/Untitled-d3c21a59-5cae-4422-8f22-2992c5d251ee.png)
+    ![](/_posts/2018-11-17-imgs/Untitled-d3c21a59-5cae-4422-8f22-2992c5d251ee.png)
 
     - WGAN과의 차이점
         - WGAN은 sample간의 distribution을 맞추지만, BEGAN에서는 loss 간의 distribution을 맞춤
@@ -93,7 +92,7 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
         - $\mathcal{L}(x)$ = 진짜 image를 Auto-encoder에 넣었을때 pixel-wise loss 
       - gamma 값이 작을수록, G가 생성한 image quality는 real에 가까워지고 image diversity는 떨어짐. (vise versa)
 
-  ![](./2018-11-17-imgs/Untitled-0cd605b1-f2cd-490d-af27-d3a3b2b40afd.png)
+  ![](/_posts/2018-11-17-imgs/Untitled-0cd605b1-f2cd-490d-af27-d3a3b2b40afd.png)
 
 ## Boundary Equilibrium GAN
   - Gradient descent 동안, Equilibrium(diversity ratio)을 유지하기 위해 Proportional Control Theory를 이용함.
@@ -104,7 +103,7 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
   - 기존의 GAN에서는 D와 G를 번갈아가면서 학습을 하였으나, BEGAN에서는 그럴 필요가 없음.
     - D와 G 각각에 대해 Adam optimizer를 적용하고, 이를 통해 얻은 loss로 $\theta$를 업데이트하면 됨.
 
-![](./2018-11-17-imgs/Untitled-076bfd47-bbf0-427c-9259-d93cc2d6834c.png)
+![](/_posts/2018-11-17-imgs/Untitled-076bfd47-bbf0-427c-9259-d93cc2d6834c.png)
 
 ## Convergence measure
   - 기존 GAN의 convergence를 결정하는 일은 어려웠음. zero-sum game. 그래서 epoch 횟수나 직접 image를 보면서 training 정도를 가늠함.
@@ -112,7 +111,7 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
       - 진짜 이미지에 대한 loss $\mathcal{L} (x)$와 proportion control algorithm의 error 합의 최소화 -> G와 D의 균형 유지를 위해 수렴점을 찾는 것
   - 이 measure를 이용하면, network가 final state에 도달했는지 혹은 model 이 collapse했는지 알 수 있음.
 
-![](./2018-11-17-imgs/Untitled-5387ace1-c472-46c2-a148-cb2845a85e3c.png)
+![](/_posts/2018-11-17-imgs/Untitled-5387ace1-c472-46c2-a148-cb2845a85e3c.png)
 
 ## Model architecture
   - D: Convolutional DNN을 가진 Auto-encoder
@@ -121,7 +120,7 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
       - down-sampling 할때마다 convolution filter linearly 증가
   - G: D의 decoder와 동일한 architecture 이용. but, D와 별도로 구성.
 
-![](./2018-11-17-imgs/Untitled-a69d3d3c-02e8-475e-8b07-9a15141b7a8a.png)
+![](/_posts/2018-11-17-imgs/Untitled-a69d3d3c-02e8-475e-8b07-9a15141b7a8a.png)
 
 ## Optional Improvement
   - vanishing residuals을 이용하여 network를 init함
