@@ -102,7 +102,7 @@ analytics:
 author:
   name             : "Vics"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : 
+  bio              : "Research & Programming"
   location         : "Seoul, Korea"
   email            : "victor.rhkwon@gmail.com"
   uri              :
