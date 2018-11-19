@@ -18,7 +18,7 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
 
 - Equilibrium enforcing method
     - paired with a loss derived from the Wasserstein distance
-    - for training AE based GAN
+    - for training AE(Auto-encoder) based GAN
 - Image generation task에 집중.
 - Visual quality 측면에서의 milestone.
 
