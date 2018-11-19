@@ -24,16 +24,15 @@ Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium gene
 
 ## Introduction
 
-- GAN은 pixel-wise loss를 이용하여 AE로 생성한 이미지보다 더 sharp한 이미지를 만들어 냄.
-- Difficulties
-    - Training이 잘 안됨.
+- Difficulties of GAN
+    - 트레이닝이 잘 안됨.
     - 올바른 hyper-parameter selection이 중요함.
     - Image diversity를 controll하기 어려움.
-    - G와 D의 convergence를 밸런싱하기 어려움 (트레이닝 초반에 D가 너무 쉽게 이겨버림).
+    - G(Generator)와 D(Discriminator)의 convergence를 밸런싱하기 어려움 (트레이닝 초반에 D가 너무 쉽게 이겨버림).
 - BEGAN
-    - (1) Training하는 동안 Generator와 Discriminator의 균형을 조정해주는 equilibrium concept 제시.
+    - (1) 트레이닝하는 동안 Generator와 Discriminator의 균형을 조절해주는 equilibrium concept 제시.
     - (2) Fast & stable convergence 가능한 standard training procedure & Robust Arch 제시.
-    - (3) Image diversity와 visual quality 간의 trade-off 조절하는 방법 제시.
+    - (3) Image diversity와 visual quality 간의 trade-off를 조절하는 방법 제시.
     - (4) Convergence Measure 제시.
 
 ## Related Work 
