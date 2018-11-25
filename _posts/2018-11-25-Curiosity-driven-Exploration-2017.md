@@ -2,11 +2,11 @@
 title: "Curiosity-driven Exploration (2017) Summary"
 date: 2018-11-25
 tags: 
-  - rl
+  - reinforcement learning
   - curiosity
   - exploration
 categories: 
-  - reinforcement learning
+  - rl
 ---
 
 Pathak, D., Agrawal, P., Efros, A. A., & Darrell, T. (2017, May). **Curiosity-driven exploration by self-supervised prediction.** In International Conference on Machine Learning (ICML) (Vol. 2017).

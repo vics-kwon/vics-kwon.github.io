@@ -2,10 +2,10 @@
 title: "BEGAN (2017) Summary"
 date: 2018-11-17
 tags: 
-  - GAN
+  - generative adversarial networks
   - BEGAN
 categories: 
-  - GAN
+  - gan
 ---
 
 Berthelot, D., Schumm, T., & Metz, L. (2017). **BEGAN: boundary equilibrium generative adversarial networks**. arXiv preprint arXiv:1703.10717.
