@@ -59,7 +59,32 @@ Pathak, D., Agrawal, P., Efros, A. A., & Darrell, T. (2017, May). **Curiosity-dr
 
 ## Curiosity-driven Exploration
 
-- 정리 예정
+- agent는 두 sub-system으로 구성됨.
+    - (1) reward generator
+        - ICM, Intrinsic Curiosity Module
+        - intrinsic reward signal($r^i_t$) 생성
+    - (2) policy
+        - reward signal($r_t$)을 최대화할 수 있는 action sequence를 생성
+        - 여기서 reward signal($r_t$)은 intrinsic reward($r^i_t$)와 extrinsic reward($r^e_t$)의 sum으로 구성.
+
+![]({{site.url}}/assets/img/2018-11-25-imgs/Untitled-41745d8e-774f-401f-813b-eabd5f26af26.png)
+
+- ICM에 대한 부연 설명
+    - raw state $s_t$와 $s_{t+1}$을 feature vector $\phi (s_t)$와 $\phi (s_{t+1})$로 encoding을 함.
+        - 이러한 접근법은 image와 같은 high-dimensional continuous state space에도 적용 가능함.
+    - Inverse dynamics model($g$)은 두 feature $\phi (s_t)$와 $\phi (s_{t+1})$를 이용하여 $a_t$를 예측함.
+        - $\hat{a}_t = g(s_t, s_{t+1}; \theta_I)$
+        - $a_t$가 discrete이면, g의 output은 모든 possible action에 대한 soft-max distribution
+    - Forward model($f$)은 t시점에서의 feature $\phi (s_t)$와 action $a_t$를 이용하여 t+1시점에서의 feature $\phi (s_{t+1})$을 예측함.
+        - $\hat{\phi}(s_{t+1}) = f(\phi(s_t), a_t; \theta_F)$
+    - Feature space에서의 prediction error는 intrinsic reward ($r^i_t$)로 사용됨.
+        - $r^i_t = \frac{\eta}{2} \lVert \hat{\phi}(s_{t+1}) - \phi(s_{t+1}) \rVert ^2 _2$
+    - 결과적으로 Feature $\phi (s_t)$는 agent에 영향을 주거나 혹은 agent의 action에 영향을 받는 부분만 feature로 encoding 됨. → agent의 exploration strategy가 상당히 robust 해짐.
+- Overall optimization problem
+    - $\beta \in [0, 1]$ and $\lambda > 0$
+
+        $min_{\theta_P, \theta_I, \theta_F} [-\lambda \mathbb{E}_{\pi(s_t;\theta_P)}[\Sigma_t r_t] + (1-\beta)L_I + \beta L_F]$
+
 
 ## Experimental Setup
 
