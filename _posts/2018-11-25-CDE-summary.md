@@ -73,7 +73,7 @@ Pathak, D., Agrawal, P., Efros, A. A., & Darrell, T. (2017, May). **Curiosity-dr
     - raw state $s_t$와 $s_{t+1}$을 feature vector $\phi (s_t)$와 $\phi (s_{t+1})$로 encoding을 함.
         - 이러한 접근법은 image와 같은 high-dimensional continuous state space에도 적용 가능함.
     - Inverse dynamics model($g$)은 두 feature $\phi (s_t)$와 $\phi (s_{t+1})$를 이용하여 $a_t$를 예측함.
-        - $\hat{a} _t = g(s_t, s_{t+1}; \theta_I)$
+        - $ \hat{a}_t = g(s_t, s_{t+1}; \theta_I)$
         - $a_t$가 discrete이면, g의 output은 모든 possible action에 대한 soft-max distribution
     - Forward model($f$)은 t시점에서의 feature $\phi (s_t)$와 action $a_t$를 이용하여 t+1시점에서의 feature $\phi (s_{t+1})$을 예측함.
         - $\hat{\phi}(s_{t+1}) = f(\phi(s_t), a_t; \theta_F)$
