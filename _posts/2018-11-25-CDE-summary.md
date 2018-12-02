@@ -88,15 +88,74 @@ Pathak, D., Agrawal, P., Efros, A. A., & Darrell, T. (2017, May). **Curiosity-dr
 
 ## Experimental Setup
 
-- 논문 참조
+- Environment
+    - Env#1 VizDoom
+        - Doom 3D navigation task
+            - 'DoomMyWayHome-v0'
+            - OpenAI Gym에서 제공
+        - Four discrete actions
+            - move forward, left, right, no-action
+        - (Sparse) Terminal reward
+            - Vest를 찾으면, +1
+            - 2100 time steps를 넘으면, 0
+    - Env#2 Super Mario Bros
+        - Re-parameterization action space → 14 unique actions
+        - No reward from the game
+- Training details
+    - trained using visual inputs
+    - RGB images → gray-scale & 42X42 size
+    - 4개의 연속된 frame을 엮어서 state ($s_t$) 형성
+    - VizDoom 환경에서는 4번의 action repeat(?), Mario 환경에서는 6번의 action repeat을 사용.
+    - A3C에서의 asynchronous training protocol 적용
+        - 20 workers, SGD로 training, worker간 parameter sharing 없이 ADAM optimizer 사용
+- A3C architecture
+    - 4개의 순차적인 Convolution layers
+        - 32 filters, 3X3 kernel size, 2 stride, 1 padding, ELU 사용.
+    - 마지막 Conv layer에서 output → LSTM
+        - 256 units으로 구성된 LSTM
+    - 2개의 분리된 fully connected layers는 LSTM feature representation으로부터 value function과 action을 예측하는 용도로 사용됨.
+- ICM architecture
+    - Inverse model
+        - Step#1 $s_t \rightarrow \text{CNN} \rightarrow \phi(s_t)$
+            - CNN: 4 conv layers, 32 filters, kernel size 3x3, 2 stride, 1 padding, ELU activation ftn
+            - output dim $\phi(s_t)$ : 288
+        - Step#2 concat $\phi(s_t), \phi(s_{t+1})$, denseNet (256, 4)
+    - Forward model
+        - $\phi(s_t), a_t \rightarrow denseNet(256, 288)$
+    - $\beta = 0.2, \lambda = 0.1$
+- Baseline Methods
+    - (1) ICM + A3C agent
+    - (2) vanilla A3C (with $\epsilon$-greedy exploration)
+    - (3) ICM-pixels + A3C
+        - forward 모델이 next observation을 pixel space에서 예측
+    - (4) TRPO-VIME(Variational Information Maximization), Houthoof et al., 2016
 
-## Experiments
+## Experiments (정리 예정)
 
-- 논문 참조
+- Sparse Extrinsic Reward Setting
+    - Varying the degree of reward sparsity
+    - Robustness to uncontrollable dynamics
+    - Comparison to TRPO-VIME
+- No Reward Setting
+    - VizDoom: Coverage during Exploration
+    - Mario: Learning to play with no rewards
+- Generalization to Novel Scenarios
+    - Evaluate 'AS-IS'
+    - Fine-tuning with curiosity only
+    - Fine-tuning with extrinsic rewards
 
 ## Related Work
 
-- 정리 예정
+- RL에서 Curiosity-driven exploration에 대한 연구는 예전부터 지속적으로 수행되어 왔고, 리뷰 논문도 많음.
+- Intrinsic rewards를 설정하는 방법이 다양함.
+    - Surprise & compression progress
+    - Information gain based on entropy of actions
+    - Prediction error in the feature space of AE
+    - State visitation counts
+    - Information gain about the agent's belief of the environment's dynamics
+        - 본 연구에서는 semantic feature embedding을 이용했다는 것이 차별점임.
+- 최근에는 data efficiency를 향상시키기 위한 연구가 진행되고 있음.
+    - pre-training을 통해 supervision을 generating하기도 하고, self-supervised prediction을 이용하기도 함.
 
 ## Discussion
 
