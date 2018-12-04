@@ -164,10 +164,18 @@ Pathak, D., Agrawal, P., Efros, A. A., & Darrell, T. (2017, May). **Curiosity-dr
             - 이는 새로운 game space에 도달하기 위해서 적을 죽이는 행동에도 agent가 관심을 갖게 되었다고 해석 가능함.
             - Curiosity = indirect supervision for learning interesting behavior
 
-- Generalization to Novel Scenarios (작성 예정)
-    - Evaluate 'AS-IS'
-    - Fine-tuning with curiosity only
-    - Fine-tuning with extrinsic rewards
+- Curiosity-driven exploration policy에 대한 검증
+    - (1) agent가 "generalized skill"을 배운 것인가, (2) 단순히 training set을 기억하고 있는 것인가.
+    - Mario Level-1 scenario에서 intrinsic reward를 최대화하도록 exploratory behavior를 학습하고, 3가지 방법으로 exploration policy를 평가함.
+        - (1) 학습된 AS-IS policy를 새로운 scenario에 적용
+            - 결과적으로, Mario Level-3에서 policy는 좋은 성능을 보이나, Mario Level-2에서는 그렇지 않음.
+            - Day World vs. Night World일 것으로 예상
+        - (2) curiosity reward만 이용하여 policy 튜닝
+            - Mario Level-2에 대해서만 추가적인 fine-tuning(1.5M iteration)을 진행하여 high score에 달성함.
+            - Mario Level-2에 대해 Scratch부터 학습(1.5M iteraiton)을 진행하면 fine-tuning policy보다 성능이 더 떨어짐.
+            - 마치 curriculum처럼 game 수행 방법을 점차적으로 학습하는 것이 효과적.
+        - (3) extrinsic reward를 최대화하도록 policy 튜닝
+            - curiosity 기반으로 먼저 학습을 한 이후에, external reward로 fine-tunning을 진행한 agent의 성능이 가장 좋음.
 
 ## Related Work
 
